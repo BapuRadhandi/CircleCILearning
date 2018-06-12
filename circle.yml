@@ -1,6 +1,8 @@
-version: 2
-jobs:
-  build:
+dependencies:
+  override:
+    - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
+
+
     docker:
       - image: circleci/node:6.11.2-browsers
       
@@ -16,10 +18,6 @@ jobs:
           command: |
             java -jar -Dwebdriver.gecko.driver=./geckodriver selenium-server-standalone-3.0.1.jar -log selenium.log
           background: true
-
-dependencies:
-  override:
-    - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
 
 test:
   override:
