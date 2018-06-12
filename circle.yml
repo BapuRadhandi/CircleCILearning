@@ -3,7 +3,7 @@ dependencies:
     - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
 
 
-    docker:
+    
       - image: circleci/node:6.11.2-browsers
       
         
