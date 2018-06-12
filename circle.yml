@@ -12,6 +12,9 @@ jobs:
           - v1-dependencies-
           - v1-dependencies-
 
+    override:
+      - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline    
+
       - run: yarn install
 
       - save_cache:
@@ -33,7 +36,7 @@ jobs:
 
       - run:
           name: Tech chromedriver
-          command: mvn test
+          command: $mvn integration-test
 
       - run: mv selenium.log selenium_log.txt
 
