@@ -14,6 +14,7 @@ public class CircleCiTest {
 		WebDriver driver = new ChromeDriver();
 		driver.navigate().to("http://google.com");
 		System.out.println("Hello World");
+		System.out.println("test");
 
 		
 		
