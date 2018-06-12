@@ -30,14 +30,10 @@ jobs:
           command: |
             java -jar -Dwebdriver.gecko.driver=./geckodriver selenium-server-standalone-3.0.1.jar -log selenium.log
           background: true
-      
-      - run:
-          name: Test geckodriver
-          command: node test_geckodriver.js
 
       - run:
           name: Tech chromedriver
-          command: node test_chromedriver.js
+          command: mvn test
 
       - run: mv selenium.log selenium_log.txt
 
