@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: Tech chromedriver
-          command: $mvn integration-test
+          command: mvn test
 
       - run: mv selenium.log selenium_log.txt
 
