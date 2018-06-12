@@ -1,36 +1,46 @@
-machine:
-  node:
-    version: 6.11.0
-    
-dependencies:
-  pre:
-    # Install Selenium.
-    - curl -O http://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar
-    - curl https://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip | gzip -dc > chromedriver
-    - chmod +x chromedriver
-    - 'java -jar -Dwebdriver.chrome.driver=./chromedriver selenium-server-standalone-3.0.1.jar &':
-      background: true
-    # Update Google Chrome.
-    - google-chrome --version
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb stable main" >> /etc/apt/sources.list.d/google.list'
-    - sudo apt-get update
-    - sudo apt-get --only-upgrade install google-chrome-stable
-    - google-chrome --version
-    
-  override:
-    - npm install --dev
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.11.2-browsers
+      
+    steps:
+      - checkout
 
-dependencies:
-  override:
-    - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
+      - restore_cache:
+          keys:
+          - v1-dependencies-
+          - v1-dependencies-
 
-test:
-  override:
-    - mvn -o surefire:test
+      - run: yarn install
 
-deployment:
-  main:
-    branch: master
-    commands:
-      - mvn -s .circleci.settings.xml -DskipTests deploy
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-
+        
+      - run:
+          name: Download Selenium and geckodriver
+          command: |
+            curl -O http://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar
+            curl -L https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz | tar xz
+            chmod +x geckodriver
+      - run:
+          name: Start Selenium
+          command: |
+            java -jar -Dwebdriver.gecko.driver=./geckodriver selenium-server-standalone-3.0.1.jar -log selenium.log
+          background: true
+
+      dependencies:
+        override:
+          - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
+
+      test:
+        override:
+          - mvn clean test
+
+      - run: mv selenium.log selenium_log.txt
+
+      - store_artifacts:
+          path: selenium_log.txt
+          destination: selenium
