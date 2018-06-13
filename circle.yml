@@ -1,50 +1,39 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:6.11.2-browsers
-      
-    steps:
-      - checkout
+# Ansible playbook to install Java 7 on Debian
+#
+# Thanks to http://www.sysadminslife.com/linux/howto-oracle-sun-java-7-installation-unter-debian-6-squeeze/
+#
+# Author: Gabriel Birke <gb@birke-software.de>
 
-      - restore_cache:
-          keys:
-          - v1-dependencies-
-          - v1-dependencies-
+- hosts: devroot
+  vars:
+    java_download: http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.tar.gz
+    java_name: jdk1.7.0_45
+    download_folder: /usr/src
+    java_archive: "{{download_folder}}/{{java_name}}.tar.gz"
+    java_folder: /usr/lib/jvm
+    java_alias: java-7-oracle
+  tasks:
 
-      - run: yarn install
+  - name: Install wget
+    apt: pkg=wget
 
-    machine:
-      java:
-        version: openjdk7
+  - name: Download Java
+    command: 'wget -q -O {{java_archive}} --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F" {{java_download}} creates={{java_archive}}' 
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-
-        
-      - run:
-          name: Download Selenium and geckodriver
-          command: |
-            curl -O http://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar
-            curl -L https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz | tar xz
-            chmod +x geckodriver
-      - run:
-          name: Start Selenium
-          command: |
-            java -jar -Dwebdriver.gecko.driver=./geckodriver selenium-server-standalone-3.0.1.jar -log selenium.log
-          background: true
+  - name: Extract Java archive
+    command: "tar -xzf {{java_archive}} -C {{download_folder}} creates={{download_folder}}/{{java_name}}"
 
-      dependencies:
-        override:
-          - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
+  - name: Fix ownership 
+    file: "state=directory path={{download_folder}}/{{java_name}} owner=root group=root recurse=yes"
 
-      test:
-        override:
-          - mvn mvn integration-test
+  - name: Create Java folder
+    file: "state=directory path={{java_folder}}"
 
-      - run: mv selenium.log selenium_log.txt
+  - name: Move Java to final folder
+    command: "mv {{download_folder}}/{{java_name}} {{java_folder}} creates={{java_folder}}/{{java_name}}"
 
-      - store_artifacts:
-          path: selenium_log.txt
-          destination: selenium
+  - name: Create symlink for easier update
+    file: "state=link src={{java_folder}}/{{java_name}} dest={{java_folder}}/{{java_alias}}"
+
+  - name: Make Java available for system
+    command: 'update-alternatives --install "/usr/bin/java" "java" "{{java_folder}}/{{java_alias}}/bin/java" 1'
