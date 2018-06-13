@@ -24,18 +24,15 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      
-      dependencies:
-  post:
-    - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
-    - java -jar selenium-server-standalone-2.44.0.jar:
-            background: true
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+    ## Customize dependencies
+    dependencies:
+      pre:
+        - sudo pip install -U selenium
 
       - run: mvn dependency:go-offline
 
