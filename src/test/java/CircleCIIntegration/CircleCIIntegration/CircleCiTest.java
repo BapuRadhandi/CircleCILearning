@@ -12,8 +12,10 @@ public class CircleCiTest {
 		
 		
 		System.out.println("launching chrome browser");
+		System.out.println("user.dir");
+		System.out.println("usr.dir");
 		System.setProperty("webdriver.chrome.driver",
-                System.getProperty("user.dir") + "/Drivers/linux/chromedriver");
+                System.getProperty("user.dir") + "/CircleCIIntegration/Drivers/linux/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		driver.navigate().to("http://google.com");
 		System.out.println("Hello World");
