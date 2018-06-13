@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Smaple eCommerce App" duration-ms="59" started-at="2018-06-13T10:36:36Z" finished-at="2018-06-13T10:36:36Z">
+    <groups>
+    </groups>
+    <test name="Test" duration-ms="59" started-at="2018-06-13T10:36:36Z" finished-at="2018-06-13T10:36:36Z">
+      <class name="CircleCIIntegration.CircleCIIntegration.CircleCiTest">
+        <test-method status="PASS" signature="googleTest()[pri:0, instance:CircleCIIntegration.CircleCIIntegration.CircleCiTest@2c039ac6]" name="googleTest" duration-ms="17" started-at="2018-06-13T16:06:36Z" finished-at="2018-06-13T16:06:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- googleTest -->
+      </class> <!-- CircleCIIntegration.CircleCIIntegration.CircleCiTest -->
+    </test> <!-- Test -->
+  </suite> <!-- Smaple eCommerce App -->
+</testng-results>
