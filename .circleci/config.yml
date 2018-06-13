@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/build
+    environment:
+        - buildenv: dev
+    machine:
+        image: circleci/classic:edge
+    steps:
+        - checkout
+        - run:
+             name: Build and Run Sema4 Testsuite
+             shell: /bin/bash
+             command: |
+                  cd $CIRCLE_PROJECT_REPONAME
+                  mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testng.xml
+
+
+   
