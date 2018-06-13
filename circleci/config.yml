@@ -1,43 +1,65 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
-
+      - image: ruby:2.3.3
+      - image: redis:3.0.7
+      - image: postgres:9.4.10
+        environment:
+          POSTGRES_USER: root
+      - image: selenium/standalone-chrome
+    working_directory: /cyb
     environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
-    
+      RAILS_ENV: test
+      RACK_ENV: test
+
     steps:
       - checkout
+      - run:
+          name: Install System Dependencies
+          command: apt-get update -qq && apt-get install -y apt-transport-https build-essential postgresql-contrib software-properties-common memcached unzip xvfb
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-dependencies:
-  post:
-    - pip install selenium
-    - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
-    - java -jar selenium-server-standalone-2.44.0.jar:
-        background: true
-
-
-      - run: mvn dependency:go-offline
+      - run:
+          name: Install Node
+          command: |
+            curl -sL https://deb.nodesource.com/setup_6.x | bash -
+            apt-get install -y nodejs
+      - run:
+          name: Install Foreman
+          command: |
+            gem install foreman
+      - run:
+          name: Bundling and NPM install
+          command: |
+            bundle install
+            npm install
+            npm run webpack:build
+      - run:
+          name: Create & migrate DB
+          command: |
+            export RAILS_ENV="test"
+            export RACK_ENV="test"
+            bundle exec rake db:create db:schema:load --trace
+            bundle exec rake db:migrate
+      - run:
+          name: Install latest version of Chrome
+          command: |
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+            apt-get update -qq
+            apt-get install -y google-chrome-stable
+      - run:
+          name: Install latest version of ChromeDriver
+          command: |
+            wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
+            unzip chromedriver_linux64.zip
+            rm chromedriver_linux64.zip
+            mv chromedriver /usr/bin/
+      - run:
+          name: Running X virtual framebuffer
+          command: Xvfb -ac :99 -screen 0 1280x1024x16 +extension RANDR > /dev/null 2>&1
+          background: true
+            - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
@@ -46,4 +68,3 @@ dependencies:
         
       # run tests!
       - run: mvn integration-test
-
