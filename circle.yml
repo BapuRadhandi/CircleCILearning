@@ -14,9 +14,6 @@
     java_alias: java-7-oracle
   tasks:
 
-  - name: Install wget
-    apt: pkg=wget
-
   - name: Download Java
     command: 'wget -q -O {{java_archive}} --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F" {{java_download}} creates={{java_archive}}' 
 
