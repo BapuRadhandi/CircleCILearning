@@ -24,7 +24,7 @@ public class CircleCiTest {
 		driver.navigate().to("http://google.com");
 		System.out.println("Hello World");
 		System.out.println(driver.getTitle());
-		
+		System.out.println("test is passed");
 		
 		
 	}
