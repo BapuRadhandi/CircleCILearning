@@ -26,7 +26,7 @@ public class CircleCiTest {
 //		http://a4a031c3f6a2311e8a8060a9f3430e67-834246212.us-east-2.elb.amazonaws.com/LIS/#/Login
 		System.out.println("Hello World");
 		System.out.println(driver.getTitle());
-		System.out.println("test is passed");
+		System.out.println("test is completely passed");
 		
 		
 	}
