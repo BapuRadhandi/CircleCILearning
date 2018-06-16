@@ -21,7 +21,9 @@ public class CircleCiTest {
 //		System.setProperty("webdriver.chrome.driver",
 //                System.getProperty("user.dir") + "/Drivers/linux/chromedriver");
 		WebDriver driver = new HtmlUnitDriver();
-		driver.navigate().to("http://google.com");
+//		driver.navigate().to("http://google.com");
+		driver.navigate().to("http://a4a031c3f6a2311e8a8060a9f3430e67-834246212.us-east-2.elb.amazonaws.com/LIS/#/Login");
+//		http://a4a031c3f6a2311e8a8060a9f3430e67-834246212.us-east-2.elb.amazonaws.com/LIS/#/Login
 		System.out.println("Hello World");
 		System.out.println(driver.getTitle());
 		System.out.println("test is passed");
