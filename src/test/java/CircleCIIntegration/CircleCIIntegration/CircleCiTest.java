@@ -9,7 +9,7 @@ public class CircleCiTest {
 	
 	
 	@Test
-	public void googleTest() {
+	public void googleTest() throws InterruptedException {
 		
 		
 //		System.out.println("launching chrome browser");
@@ -26,6 +26,7 @@ public class CircleCiTest {
 //		http://a4a031c3f6a2311e8a8060a9f3430e67-834246212.us-east-2.elb.amazonaws.com/LIS/#/Login
 		System.out.println("Hello World");
 		System.out.println(driver.getTitle());
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//input[@name='usernametext']")).sendKeys("admin");
 		driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/div/div/div/div/div/div/div/div/form/div/div[2]/div/div/input")).sendKeys("admin");
 		driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/div/div/div/div/div/div/div/div/form/div/div[3]/div/div/button")).click();
