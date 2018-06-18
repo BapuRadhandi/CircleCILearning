@@ -26,10 +26,10 @@ public class CircleCiTest {
 //                System.getProperty("user.dir") + "/Drivers/linux/chromedriver");
 		WebDriver driver = new HtmlUnitDriver();
 		
-		long timeoutInSeconds = 15;
-		WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+		//long timeoutInSeconds = 15;
+		WebDriverWait wait = new WebDriverWait(driver, 15);
 	//	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath()));
-		 driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		// driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 //		driver.navigate().to("http://google.com");
 		driver.navigate().to("http://pkr4jm9q0slz.live.wavemakeronline.com/LIS/#/Login");
 //		http://a4a031c3f6a2311e8a8060a9f3430e67-834246212.us-east-2.elb.amazonaws.com/LIS/#/Login
