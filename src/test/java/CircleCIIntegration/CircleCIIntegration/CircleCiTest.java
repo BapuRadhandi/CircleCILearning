@@ -1,14 +1,19 @@
 package CircleCIIntegration.CircleCIIntegration;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class CircleCiTest {
 	
@@ -16,9 +21,7 @@ public class CircleCiTest {
 	@Test
 	public void googleTest() throws InterruptedException {
 		
-		
-		PhantomJSDriver driver = new PhantomJSDriver();
-		//driver.setJavascriptEnabled(true);
+		HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_38);
 
 //		driver.navigate().to("http://google.com");
 		driver.navigate().to("http://pkr4jm9q0slz.live.wavemakeronline.com/LIS/#/Login");
@@ -27,6 +30,7 @@ public class CircleCiTest {
 		
 		System.out.println("Hello World");
 		System.out.println(driver.getTitle());
+		System.out.println(driver.getCurrentUrl());
 		Thread.sleep(5000);
 		
 
