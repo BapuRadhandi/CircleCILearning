@@ -42,7 +42,8 @@ public class CircleCiTest {
 		
 			 //  driver.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//td[2]/input")));
 		//driver.findElement(By.xpath("//input[@name='usernametext']")).sendKeys("admin");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='usernametext']"))).sendKeys("admin");
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='usernametext']"))).sendKeys("admin");
+		System.out.println("page source--------------------\n"+driver.getPageSource());
 		driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/div/div/div/div/div/div/div/div/form/div/div[2]/div/div/input")).sendKeys("admin");
 		driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/div/div/div/div/div/div/div/div/form/div/div[3]/div/div/button")).click();
 		System.out.println("test is completely passed");
