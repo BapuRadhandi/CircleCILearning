@@ -25,7 +25,7 @@ public class CircleCiTest {
 //		System.setProperty("webdriver.chrome.driver",
 //                System.getProperty("user.dir") + "/Drivers/linux/chromedriver");
 		HtmlUnitDriver driver = new HtmlUnitDriver();
-		driver.setJavascriptEnabled(true);
+		//driver.setJavascriptEnabled(true);
 		
 		//long timeoutInSeconds = 15;
 		WebDriverWait wait = new WebDriverWait(driver, 15);
