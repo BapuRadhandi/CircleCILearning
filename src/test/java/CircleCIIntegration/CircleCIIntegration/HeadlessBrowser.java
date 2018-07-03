@@ -1,22 +1,24 @@
 package CircleCIIntegration.CircleCIIntegration;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.*;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-public class CircleCiTest {
+ 
+public class HeadlessBrowser {
+ 
 	
-	
-	@Test
-	public void googleTest() throws InterruptedException {
-		
+ 	
+ 	@Test
+ 	public void googleTest() throws InterruptedException {
  		
 		Capabilities caps = new DesiredCapabilities();
 		((DesiredCapabilities) caps).setJavascriptEnabled(true);
@@ -29,7 +31,9 @@ public class CircleCiTest {
 		driver.get("https://www.google.co.in");
 		System.out.println(driver.getTitle());
 		System.out.println("driver instance :" + driver);
- 				
-	}
+ 		
+		
+ 	}
 
-}
+ }
+
