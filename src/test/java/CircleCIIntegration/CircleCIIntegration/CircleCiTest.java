@@ -37,9 +37,15 @@ public class CircleCiTest {
 //		driver.get("https://lplus-qa.sema4genomics.com/s4-lis-accessioning/#/Login");
 		Thread.sleep(5000);
 		System.out.println("Title is : "+driver.getTitle());
+		driver.findElement(By.xpath("//input[@name='usernametext']")).sendKeys("user");
+		driver.findElement(By.xpath("//input[@name='passwordtext']")).sendKeys("user");
+		driver.findElement(By.name("loginButton")).click();
+		
+		Thread.sleep(3000);
+		System.out.println("name is : "+driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/header/div/section/div/div/div/div/div/div[2]/label[1]")).getText());
+		
+		System.out.println("title is :" +driver.getTitle());
 
-
- 				
-	}
-
+}
+	
 }
