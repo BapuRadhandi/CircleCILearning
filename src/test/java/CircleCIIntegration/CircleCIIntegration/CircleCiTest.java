@@ -27,7 +27,7 @@ public class CircleCiTest {
 			
 			((DesiredCapabilities) caps).setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 			((DesiredCapabilities) caps).setCapability(
-			PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"Drivers/mac/phantomjs");
+			PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"Drivers/mac/phantomjs_linux");
 							
 			WebDriver driver = new PhantomJSDriver(caps);	
 		Thread.sleep(2000);
