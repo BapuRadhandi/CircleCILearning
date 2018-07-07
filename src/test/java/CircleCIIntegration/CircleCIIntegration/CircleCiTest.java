@@ -33,7 +33,7 @@ public class CircleCiTest {
 			);
 							
 			WebDriver driver = new PhantomJSDriver(caps);	
-		
+		Thread.sleep(2000);
 		System.out.println("driver instance is :"+ driver);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 //		driver.get("http://pk54ysqfjstw.cloud.wavemakeronline.com/s4_lis_accessioning/#/Login?redirectTo=Accession");
