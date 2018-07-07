@@ -29,8 +29,7 @@ public class CircleCiTest {
 			((DesiredCapabilities) caps).setCapability(
 			PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
 //			"/Users/bapur/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs"
-			"Drivers/mac/phantomjs"
-			);
+			"Drivers/mac/phantomjs");
 							
 			WebDriver driver = new PhantomJSDriver(caps);	
 		Thread.sleep(2000);
