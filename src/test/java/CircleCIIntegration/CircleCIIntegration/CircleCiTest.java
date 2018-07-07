@@ -16,8 +16,6 @@ public class CircleCiTest {
 	
 	@Test
 	public void googleTest() throws InterruptedException {
-		
- 		
 	
 
 			Capabilities caps = new DesiredCapabilities();
