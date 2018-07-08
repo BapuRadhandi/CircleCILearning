@@ -31,8 +31,8 @@ public class CircleCiTest {
 		Thread.sleep(2000);
 		System.out.println("driver instance is :"+ driver);
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//		driver.get("http://pk54ysqfjstw.cloud.wavemakeronline.com/s4_lis_accessioning/#/Login?redirectTo=Accession");
-		driver.get("https://lplus-qa.sema4genomics.com/s4-lis-accessioning/#/Login");
+		driver.get("http://pk54ysqfjstw.cloud.wavemakeronline.com/s4_lis_accessioning/#/Login?redirectTo=Accession");
+//		driver.get("https://lplus-qa.sema4genomics.com/s4-lis-accessioning/#/Login");
 		Thread.sleep(5000);
 		System.out.println("Title is : "+driver.getTitle());
 		driver.findElement(By.xpath("//input[@name='usernametext']")).sendKeys("user");
@@ -43,6 +43,7 @@ public class CircleCiTest {
 		System.out.println("name is : "+driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/header/div/section/div/div/div/div/div/div[2]/label[1]")).getText());
 		
 		System.out.println("title is :" +driver.getTitle());
+		System.out.println("test");
 
 }
 	
