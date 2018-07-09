@@ -39,6 +39,7 @@ public class CircleCiTest {
 		driver.findElement(By.xpath("//input[@name='passwordtext']")).sendKeys("user");
 		driver.findElement(By.name("loginButton")).click();
 		
+		
 		Thread.sleep(3000);
 		System.out.println("name is : "+driver.findElement(By.xpath(".//*[@id='wm-app-content']/div/header/div/section/div/div/div/div/div/div[2]/label[1]")).getText());
 		
