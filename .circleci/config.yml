@@ -12,6 +12,9 @@ jobs:
              name: Build and Run Sema4 Testsuite
              shell: /bin/bash
              command: |
+                  sudo su
+                  sudo echo "18.220.45.66 lplus-qa.sema4genomics.com" >/etc/hosts
+                  exit
                   cd $CIRCLE_PROJECT_REPONAME
                   mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testng.xml
 
